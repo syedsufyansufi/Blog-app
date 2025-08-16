@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const Post = require("./models/post");
+const Post = require("./models/Post");
 
 const app = express();
 // Enable CORS for React frontend
