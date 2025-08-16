@@ -2,6 +2,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
 
+const API_BASE = "https://blog-app-tm56.onrender.com";  // your Render backend URL
+
 function App() {
     const [posts, setPosts] = useState([]);
     const [newPost, setNewPost] = useState({ title: '', content: '', author: '' });
@@ -15,7 +17,7 @@ function App() {
     const fetchPosts = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:5000/posts');
+            const response = await axios.get(`${API_BASE}/posts`);
             setPosts(response.data);
         } catch (error) {
             console.error('Error fetching posts:', error);
@@ -32,7 +34,7 @@ function App() {
         }
 
         try {
-            await axios.post('http://localhost:5000/posts', newPost);
+            await axios.post(`${API_BASE}/posts`, newPost);
             setNewPost({ title: '', content: '', author: '' });
             fetchPosts(); // Refresh the list
             alert('Post created successfully!');
@@ -45,7 +47,7 @@ function App() {
     const deletePost = async (id) => {
         if (window.confirm('Are you sure you want to delete this post?')) {
             try {
-                await axios.delete(`http://localhost:5000/posts/${id}`);
+                await axios.delete(`${API_BASE}/posts/${id}`);
                 fetchPosts(); // Refresh the list
                 alert('Post deleted successfully!');
             } catch (error) {
